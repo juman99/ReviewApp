@@ -2,33 +2,56 @@ package com.example.reviewsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.button
+import android.view.View
+import android.widget.Button
+import android.widget.*
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val button: button = this.findViewById(R.id.Result)
-        button.setOnClickListener{
-                view ->
-        }
+
+        val button: Button = this.findViewById(R.id.btSubmit)
+        val edtxt1: EditText = findViewById(R.id.num1)
+        val edtxt2: EditText=findViewById(R.id.UserText)
         val resultTV: TextView = findViewById(R.id.Result)
-        var flag : String = "Rating"
 
-        val spinnerVal : Spinner = findViewById(R.id.sp)
-        var options = arrayOf("Rating","Written Review")
-        spinnerVal.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,options )
-        spinnerVal.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        var flag: String = "Rating"
+        val spinnerVal: Spinner = findViewById(R.id.sp1)
+        var options = arrayOf("Rating", "Written Review")
+        spinnerVal.adapter =
+            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options)
+        spinnerVal.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                flag = options.get(p2)
+            }
 
-    }
-        button.setOnClickListener{ view ->
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
+        button.setOnClickListener { view ->
 
             var x: Int = edtxt1.text.toString().toInt();
-            var y: Int = edtxt2.text.toString().toInt();
-            if(flag =="sum")
-                resultTV.text = sum(x,y).toString();
+            var y: String = edtxt2.text.toString();
+
+            if (flag == "Rating")
+                resultTV.text = Rating(x).toString();
             else
-                resultTV.text = multiply(x,y).toString();
+                resultTV.text = Text(y).toString();
+
+
         }
+    }
+
+    public fun Rating(a: Int): Int{
+        return a;
+    }
+
+    public fun Text(a: String): String{
+        return a;
+    }
 
 }
